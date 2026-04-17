@@ -1,0 +1,19 @@
+import { readFileSync, writeFileSync } from 'fs'
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const threePkgPath = resolve(__dirname, '../node_modules/three/package.json')
+const stubPath = resolve(__dirname, '../node_modules/three/build/three-stub.js')
+
+writeFileSync(stubPath, 'export default {};\n')
+
+const pkg = JSON.parse(readFileSync(threePkgPath, 'utf8'))
+const stub = './build/three-stub.js'
+
+pkg.exports['./webgpu'] = stub
+pkg.exports['./tsl'] = stub
+pkg.exports['./addons'] = stub
+
+writeFileSync(threePkgPath, JSON.stringify(pkg, null, 2))
+console.log('✅ three patched successfully')
