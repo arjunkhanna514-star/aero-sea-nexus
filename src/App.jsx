@@ -13,9 +13,27 @@ import Dashboard      from './components/Dashboard.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
-  // Root → premium landing page (public)
+  // Root domain serves the dashboard
   {
     path: '/',
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
+  },
+  // /dashboard also serves the dashboard
+  {
+    path: '/dashboard',
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
+  },
+  // Landing page moved to explicit route
+  {
+    path: '/landing',
     element: <Landing />,
   },
   // Public auth pages
@@ -27,16 +45,7 @@ const router = createBrowserRouter([
     path: '/signup',
     element: <Signup />,
   },
-  // Protected main application
-  {
-    path: '/dashboard',
-    element: (
-      <ProtectedRoute>
-        <Dashboard />
-      </ProtectedRoute>
-    ),
-  },
-  // Catch-all — send unknown routes to landing
+  // Catch-all — send unknown routes to dashboard
   {
     path: '*',
     element: <Navigate to="/" replace />,
