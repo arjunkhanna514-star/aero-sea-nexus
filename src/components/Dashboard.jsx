@@ -26,7 +26,12 @@ import {
 } from 'lucide-react'
 
 import GlobeView        from './GlobeView.jsx'
-import { callAI }       from '../services/aiAgent.js'
+import Sidebar from './layout/Sidebar.jsx'
+import TopBar from './layout/TopBar.jsx'
+import AIChat from './ai/AIChat.jsx'
+import CommandPalette from './ui/CommandPalette.jsx'
+import NotificationPanel from './ui/NotificationPanel.jsx'
+import MetricCard from './ui/MetricCard.jsx'
 
 // ── Design tokens ────────────────────────────────────────────────
 const C = {
@@ -123,17 +128,7 @@ const ST = ({icon:I,title,sub,accent=C.cyan}) => (
   </div>
 )
 const Met = ({label,value,change,unit=''}) => (
-  <div style={{background:C.elevated,border:`1px solid ${C.border}`,borderRadius:6,padding:'11px 14px'}}>
-    <div style={{...mono,fontSize:9,color:C.textSecondary,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:5}}>{label}</div>
-    <div style={{display:'flex',alignItems:'baseline',gap:4}}>
-      <span style={{...mono,fontSize:20,fontWeight:500,color:C.textPrimary}}>{value}</span>
-      {unit&&<span style={{fontSize:11,color:C.textSecondary}}>{unit}</span>}
-    </div>
-    {change!==undefined&&<div style={{display:'flex',alignItems:'center',gap:3,marginTop:3}}>
-      {change>=0?<ArrowUpRight size={11} color={C.green}/>:<ArrowDownRight size={11} color={C.red}/>}
-      <span style={{...mono,fontSize:10,color:change>=0?C.green:C.red}}>{change>=0?'+':''}{change}%</span>
-    </div>}
-  </div>
+  <MetricCard label={label} value={value} change={change} unit={unit} />
 )
 const SDot = ({s='active'}) => {
   const col = s==='active'?C.green:s==='warning'?C.yellow:C.red
@@ -990,91 +985,37 @@ function useAviationData() {
 export default function Dashboard() {
   const [pg,   setPg]   = useState('ingestion')
   const [chat, setChat] = useState(false)
+  const [chatFullscreen, setChatFullscreen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [notifOpen, setNotifOpen] = useState(false)
 
   // Live telemetry data
   const weatherData  = usePortWeather()
   const aviationData = useAviationData()
 
-  const cur = NAV.find(n=>n.id===pg)
   useEffect(()=>{setChat(false);},[pg])
 
   return (
     <div style={{display:'flex',height:'100vh',background:C.bg,overflow:'hidden',...raj}}>
       <GS/>
 
-      {/* ── Sidebar ── */}
-      <div style={{width:220,background:C.surface,borderRight:`1px solid ${C.border}`,display:'flex',flexDirection:'column',flexShrink:0,overflowY:'auto'}}>
-        <div style={{padding:'16px 14px 12px',borderBottom:`1px solid ${C.border}`}}>
-          <div style={{display:'flex',alignItems:'center',gap:8}}>
-            <div style={{width:28,height:28,borderRadius:5,background:'rgba(0,200,255,0.1)',border:`1px solid ${C.borderHi}`,display:'flex',alignItems:'center',justifyContent:'center'}}>
-              <Anchor size={14} color={C.cyan}/>
-            </div>
-            <div>
-              <div style={{...raj,fontWeight:700,fontSize:16,color:C.cyan,letterSpacing:'0.05em',lineHeight:1.1}}>AERO-SEA</div>
-              <div style={{...mono,fontSize:8,color:C.textSecondary,letterSpacing:'0.12em',textTransform:'uppercase'}}>NEXUS PLATFORM</div>
-            </div>
-          </div>
-        </div>
-        <nav style={{flex:1,padding:'6px 0'}}>
-          {NAV.map(item=>(
-            <button key={item.id} className={`nb${pg===item.id?' act':''}`} onClick={()=>setPg(item.id)}>
-              <item.icon size={14} color={pg===item.id?C.cyan:C.textSecondary}/>
-              <div>
-                <div style={{...raj,fontWeight:pg===item.id?700:500,fontSize:13,color:pg===item.id?C.cyan:C.textSecondary,lineHeight:1.2}}>{item.label}</div>
-                <div style={{...mono,fontSize:8,color:pg===item.id?'rgba(0,200,255,0.5)':C.textMuted}}>{item.sub}</div>
-              </div>
-            </button>
-          ))}
-        </nav>
-        <div style={{padding:'10px 14px',borderBottom:`1px solid ${C.border}`}}>
-          <div style={{...mono,fontSize:9,color:C.textSecondary,marginBottom:5,display:'flex',alignItems:'center',gap:5}}><SDot/> All systems live</div>
-          <div style={{display:'flex',gap:6}}>
-            {[['Q-NAV',C.cyan],['SWARM',C.purple],['EAGLE',C.green]].map(([l,c])=>(
-              <span key={l} style={{...mono,fontSize:8,color:c,background:`rgba(${c===C.cyan?'0,200,255':c===C.purple?'168,85,247':'0,255,133'},0.1)`,padding:'2px 6px',borderRadius:2}}>{l}</span>
-            ))}
-          </div>
-          <div style={{...mono,fontSize:8,color:C.textMuted,marginTop:5}}>v4.0.0 · 2026 · Groq AI</div>
-        </div>
-      </div>
+      <Sidebar 
+        activePage={pg} 
+        onPageChange={setPg} 
+        collapsed={sidebarCollapsed} 
+        onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)} 
+      />
 
-      {/* ── Main content ── */}
-      <div style={{flex:1,display:'flex',flexDirection:'column',overflow:'hidden'}}>
-        {/* Top bar — [AUTH] UserButton replaces static User icon */}
-        <div style={{height:44,display:'flex',alignItems:'center',justifyContent:'space-between',padding:'0 18px',borderBottom:`1px solid ${C.border}`,background:C.surface,flexShrink:0}}>
-          <div style={{display:'flex',alignItems:'center',gap:7}}>
-            <ChevronRight size={12} color={C.textSecondary}/>
-            <span style={{...mono,fontSize:11,color:C.textSecondary}}>{cur?.label}</span>
-            <span style={{...mono,fontSize:10,color:C.textMuted}}>/ {cur?.sub}</span>
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:12}}>
-            <div style={{display:'flex',gap:6}}>
-              {[['Q-NAV',C.cyan],['SWARM',C.purple],['EAGLE',C.green]].map(([l,c])=>(
-                <span key={l} style={{...mono,fontSize:9,color:c,background:`rgba(${c===C.cyan?'0,200,255':c===C.purple?'168,85,247':'0,255,133'},0.08)`,padding:'2px 7px',borderRadius:2,border:`1px solid ${c}22`}}>⬤ {l}</span>
-              ))}
-            </div>
-            <button className="ab" onClick={()=>setChat(o=>!o)} style={{display:'flex',alignItems:'center',gap:6,padding:'5px 11px',fontSize:12}}>
-              <Bot size={13}/> AI Agent {chat?'▾':'▸'}
-            </button>
-            {/*
-              [STEP 2 - AUTH] Clerk UserButton:
-              Renders the user's avatar, provides account management dropdown,
-              and handles sign-out automatically. afterSignOutUrl is set in ClerkProvider.
-            */}
-            <UserButton
-              afterSignOutUrl="/login"
-              appearance={{
-                elements: {
-                  avatarBox: {
-                    width:  32,
-                    height: 32,
-                    border: `1px solid ${C.borderHi}`,
-                    borderRadius: '50%',
-                  },
-                },
-              }}
-            />
-          </div>
-        </div>
+      <div style={{flex:1,display:'flex',flexDirection:'column',overflow:'hidden',position:'relative'}}>
+        <TopBar 
+          currentPage={pg} 
+          notificationCount={EMAILS.filter(e=>!e.d).length} 
+          onToggleAI={() => setChat(!chat)} 
+          onToggleNotifications={() => setNotifOpen(!notifOpen)} 
+          onOpenSearch={() => setSearchOpen(true)} 
+          aiActive={chat} 
+        />
 
         {/* Page content */}
         <div style={{flex:1,overflowY:'auto'}}>
@@ -1086,12 +1027,36 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Floating bot button */}
-      <button onClick={()=>setChat(o=>!o)} style={{position:'fixed',bottom:20,right:20,width:50,height:50,borderRadius:'50%',background:chat?'rgba(0,200,255,0.18)':'rgba(0,200,255,0.1)',border:`1px solid ${C.borderHi}`,color:C.cyan,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',zIndex:998,boxShadow:'0 4px 24px rgba(0,200,255,0.22)',transition:'all .2s'}}>
-        <Bot size={21}/>
-      </button>
+      <CommandPalette 
+        isOpen={searchOpen} 
+        onClose={() => setSearchOpen(false)} 
+        onSelect={(id) => { setPg(id); setSearchOpen(false); }} 
+        pages={NAV} 
+        actions={[]} 
+      />
 
-      {chat && <Chat page={pg} onClose={()=>setChat(false)}/>}
+      <NotificationPanel 
+        isOpen={notifOpen} 
+        onClose={() => setNotifOpen(false)} 
+        notifications={EMAILS.map(e => ({
+          id: e.subj,
+          title: e.from,
+          description: e.subj,
+          timestamp: e.t,
+          priority: e.p,
+          read: e.d
+        }))} 
+        onMarkRead={() => {}} 
+        onDismiss={() => {}} 
+      />
+
+      <AIChat 
+        page={pg} 
+        isOpen={chat} 
+        onClose={() => setChat(false)} 
+        isFullscreen={chatFullscreen} 
+        onToggleFullscreen={() => setChatFullscreen(!chatFullscreen)} 
+      />
     </div>
   )
 }

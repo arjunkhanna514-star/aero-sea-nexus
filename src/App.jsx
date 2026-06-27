@@ -6,16 +6,17 @@
  * future-proof loader / action support.
  */
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import Landing        from './pages/Landing.jsx'
 import Login          from './pages/Login.jsx'
 import Signup         from './pages/Signup.jsx'
 import Dashboard      from './components/Dashboard.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
-  // Root → redirect to dashboard (ProtectedRoute will gate it)
+  // Root → premium landing page (public)
   {
     path: '/',
-    element: <Navigate to="/dashboard" replace />,
+    element: <Landing />,
   },
   // Public auth pages
   {
@@ -35,10 +36,10 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  // Catch-all — send unknown routes to dashboard (gate handles auth)
+  // Catch-all — send unknown routes to landing
   {
     path: '*',
-    element: <Navigate to="/dashboard" replace />,
+    element: <Navigate to="/" replace />,
   },
 ])
 

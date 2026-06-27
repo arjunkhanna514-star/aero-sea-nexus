@@ -9,6 +9,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ClerkProvider } from '@clerk/clerk-react'
 import App from './App.jsx'
+import './index.css'
 
 // Pulled from .env.local — fails loudly if the key is missing
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY

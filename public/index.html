@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aero Sea Nexus — One Brain for the Ocean and the Sky</title>
+<meta name="description" content="Aero Sea Nexus unifies maritime and aviation logistics under a single real-time AI decision engine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar { display: none; }
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ATMOSPHERIC FLASH (Lightning System A)
+   ═══════════════════════════════════════════════════════════ */
+@keyframes atmosphericFlash {
+  0%   { opacity: 0; }
+  2%   { opacity: 1; }
+  4%   { opacity: 0; }
+  100% { opacity: 0; }
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(100,180,255,0.04);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+}
+body.atmo-flash::before {
+  animation: atmosphericFlash 1.2s ease-out forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHTNING CANVAS (Lightning System B)
+   ═══════════════════════════════════════════════════════════ */
+#lightning-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THREE.JS CANVAS
+   ═══════════════════════════════════════════════════════════ */
+#bg-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.eyebrow {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #00B4D8;
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+}
+
+.section-headline {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  color: #fff;
+  margin-bottom: 1.5rem;
+  line-height: 1.08;
+}
+
+.body-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  color: rgba(255,255,255,0.65);
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  line-height: 1.75;
+  max-width: 640px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLASSMORPHISM
+   ═══════════════════════════════════════════════════════════ */
+.glass {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+.anim {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.anim.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.anim.from-left {
+  transform: translateX(-60px) translateY(0);
+}
+.anim.from-left.visible {
+  transform: translateX(0) translateY(0);
+}
+.anim.from-right {
+  transform: translateX(60px) translateY(0);
+}
+.anim.from-right.visible {
+  transform: translateX(0) translateY(0);
+}
+.delay-1 { transition-delay: 0.15s; }
+.delay-2 { transition-delay: 0.3s; }
+.delay-3 { transition-delay: 0.45s; }
+.delay-4 { transition-delay: 0.6s; }
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════════════ */
+.navbar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 3rem;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.4s;
+}
+.navbar-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00B4D8;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+.navbar-contact {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.55rem 1.5rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+  letter-spacing: 0.05em;
+}
+.navbar-contact:hover {
+  background: rgba(0,180,216,0.15);
+  border-color: rgba(0,180,216,0.35);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTIONS — GENERAL
+   ═══════════════════════════════════════════════════════════ */
+.section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  padding: 7rem 3rem;
+}
+.section-inner {
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION 1 — HERO
+   ═══════════════════════════════════════════════════════════ */
+.hero {
+  text-align: center;
+  flex-direction: column;
+  background: transparent;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.hero-line1 {
+  font-size: clamp(3.5rem, 8vw, 9rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.hero-line2 {
+  font-size: clamp(2rem, 4.5vw, 5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #0077B6, #00B4D8, #90E0EF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-subtitle {
+  max-width: 640px;
+  margin-top: 0.5rem;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+}
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn-primary, .btn-secondary {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.85rem 2.2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.35s;
+  letter-spacing: 0.03em;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #0077B6, #00B4D8);
+  color: #fff;
+  border: none;
+  box-shadow: 0 0 30px rgba(0,119,182,0.25);
+}
+.btn-primary:hover {
+  box-shadow: 0 0 50px rgba(0,180,216,0.4);
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+}
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(0,180,216,0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION 2 — THE PROBLEM
+   ═══════════════════════════════════════════════════════════ */
+.problem {
+  background: rgba(0,0,0,0.75);
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+.problem-card {
+  padding: 2.5rem;
+}
+.problem-card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+  color: #00B4D8;
+}
+.problem-card ul {
+  list-style: none;
+  padding: 0;
+}
+.problem-card li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.6);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.problem-card li:last-child { border-bottom: none; }
+.problem-card .stat-inline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTIONS 3 & 4 — MARITIME / AVIATION
+   ═══════════════════════════════════════════════════════════ */
+.domain-section {
+  background: rgba(0,0,0,0.8);
+  overflow: hidden;
+}
+.domain-section .section-inner { position: relative; }
+.watermark {
+  position: absolute;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 20vw;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+.watermark-sea { top: 50%; left: -5%; transform: translateY(-50%); }
+.watermark-sky { top: 50%; right: -5%; transform: translateY(-50%); text-align: right; }
+
+.domain-content { position: relative; z-index: 1; }
+.domain-content.align-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.domain-content.align-right .body-text { text-align: right; }
+
+.cap-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.cap-card {
+  padding: 2rem 1.75rem;
+  transition: all 0.4s;
+}
+.cap-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(0,180,216,0.2);
+  transform: translateY(-4px);
+}
+.cap-card h4 {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+  color: #fff;
+}
+.cap-card p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION 5 — THE BRAIN / NEXUS
+   ═══════════════════════════════════════════════════════════ */
+.nexus {
+  background: rgba(0,0,0,0.82);
+  text-align: center;
+}
+.nexus .section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nexus-diagram {
+  width: 100%;
+  max-width: 700px;
+  height: 180px;
+  margin: 3rem 0;
+  position: relative;
+}
+.nexus-node {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(0,180,216,0.25);
+  background: rgba(0,180,216,0.06);
+}
+.nexus-node.maritime { left: 0; color: #0077B6; border-color: rgba(0,119,182,0.35); }
+.nexus-node.core {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px; height: 140px;
+  font-size: 0.9rem;
+  border-color: rgba(0,180,216,0.5);
+  background: rgba(0,180,216,0.1);
+  color: #00B4D8;
+  box-shadow: 0 0 60px rgba(0,180,216,0.15), inset 0 0 30px rgba(0,180,216,0.05);
+  animation: corePulse 3s ease-in-out infinite;
+}
+.nexus-node.aviation { right: 0; color: #90E0EF; border-color: rgba(144,224,239,0.3); }
+
+@keyframes corePulse {
+  0%, 100% { box-shadow: 0 0 60px rgba(0,180,216,0.15), inset 0 0 30px rgba(0,180,216,0.05); }
+  50% { box-shadow: 0 0 80px rgba(0,180,216,0.3), inset 0 0 40px rgba(0,180,216,0.1); }
+}
+
+.nexus-line {
+  position: absolute;
+  top: 50%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,180,216,0.4), transparent);
+  transform: translateY(-50%);
+}
+.nexus-line.left { left: 120px; width: calc(50% - 190px); }
+.nexus-line.right { right: 120px; width: calc(50% - 190px); }
+.nexus-line::after {
+  content: '';
+  position: absolute;
+  top: -1px; left: 0;
+  width: 100%; height: 4px;
+  background: repeating-linear-gradient(90deg, transparent, transparent 12px, rgba(0,180,216,0.6) 12px, rgba(0,180,216,0.6) 24px);
+  animation: dashFlow 2s linear infinite;
+}
+@keyframes dashFlow { 0% { transform: translateX(-24px); } 100% { transform: translateX(0); } }
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+  width: 100%;
+}
+.stat-block { text-align: center; padding: 2rem 1rem; }
+.stat-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 8vw, 7rem);
+  color: #fff;
+  text-shadow: 0 0 40px rgba(0,119,182,0.35), 0 0 80px rgba(0,180,216,0.15);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION 6 — VISION
+   ═══════════════════════════════════════════════════════════ */
+.vision {
+  background: rgba(0,0,0,0.78);
+  text-align: center;
+}
+.vision .section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vision-quote {
+  font-family: 'Space Grotesk', sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+  color: #fff;
+  max-width: 900px;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+.vision-author {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 3rem;
+  font-weight: 400;
+}
+.vision-divider {
+  width: 120px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,180,216,0.5), transparent);
+  margin-bottom: 3rem;
+}
+.phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+}
+.phase { padding: 2rem 1.5rem; text-align: center; }
+.phase-tag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00B4D8;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+.phase-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION 7 — CONTACT
+   ═══════════════════════════════════════════════════════════ */
+.contact {
+  background: rgba(0,0,0,0.82);
+  text-align: center;
+}
+.contact .section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contact-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  width: 100%;
+  max-width: 640px;
+}
+.contact-card {
+  padding: 2.25rem 2rem;
+  text-decoration: none;
+  transition: all 0.35s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+.contact-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(0,180,216,0.25);
+  transform: translateY(-3px);
+}
+.contact-icon { font-size: 2rem; line-height: 1; }
+.contact-card-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+}
+.contact-card-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #fff;
+}
+.contact-cta { margin-top: 3rem; }
+
+.footer {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0.9);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .section { padding: 5rem 1.5rem; }
+  .navbar { padding: 1rem 1.5rem; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .cap-cards { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .phases { grid-template-columns: 1fr; }
+  .contact-cards { grid-template-columns: 1fr; }
+  .nexus-diagram { height: 280px; }
+  .nexus-node { width: 90px; height: 90px; font-size: 0.65rem; }
+  .nexus-node.core { width: 100px; height: 100px; }
+  .nexus-line.left { left: 90px; width: calc(50% - 145px); }
+  .nexus-line.right { right: 90px; width: calc(50% - 145px); }
+  .domain-content.align-right { text-align: left; align-items: flex-start; }
+  .domain-content.align-right .body-text { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- THREE.JS CANVAS -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- LIGHTNING CANVAS (System B) -->
+<canvas id="lightning-canvas"></canvas>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+  <a href="#" class="navbar-logo">ASN</a>
+  <a href="#contact" class="navbar-contact">Contact</a>
+</nav>
+
+<!-- SECTION 1 — HERO -->
+<section class="section hero" id="hero">
+  <div class="hero-inner">
+    <h1>
+      <span class="hero-line1 anim">One Brain</span>
+      <span class="hero-line2 anim delay-1">for the Ocean and the Sky.</span>
+    </h1>
+    <p class="hero-subtitle anim delay-2">Aero Sea Nexus unifies maritime and aviation logistics under a single real-time AI decision engine.</p>
+    <div class="hero-ctas anim delay-3">
+      <a href="#nexus" class="btn-primary">Explore the Vision</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 — THE PROBLEM -->
+<section class="section problem" id="problem">
+  <div class="section-inner">
+    <div class="eyebrow anim">The Challenge</div>
+    <h2 class="section-headline anim delay-1">Two worlds. Zero coordination.</h2>
+    <p class="body-text anim delay-2">Maritime and aviation logistics have evolved independently for decades — creating billions in inefficiencies, duplicated infrastructure, and blind spots that no single operator can see.</p>
+    <div class="problem-grid">
+      <div class="glass problem-card anim from-left delay-2">
+        <h3>🌊 Maritime</h3>
+        <ul>
+          <li><span class="stat-inline">$7.8B</span> lost annually to sub-optimal routing</li>
+          <li>Port congestion causes <span class="stat-inline">23%</span> of all shipping delays</li>
+          <li>Weather rerouting decisions still rely on <span class="stat-inline">72-hour</span> manual forecasts</li>
+          <li>Average vessel fuel waste: <span class="stat-inline">14%</span> per voyage</li>
+        </ul>
+      </div>
+      <div class="glass problem-card anim from-right delay-3">
+        <h3>✈️ Aviation</h3>
+        <ul>
+          <li><span class="stat-inline">$4.2B</span> burned in excess fuel from inefficient airspace</li>
+          <li>ATC load imbalances cause <span class="stat-inline">38%</span> of cascading delays</li>
+          <li>Flight path recalculation latency: <span class="stat-inline">45 minutes</span> average</li>
+          <li>Only <span class="stat-inline">12%</span> of airlines use real-time AI optimization</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 — MARITIME -->
+<section class="section domain-section" id="maritime">
+  <div class="section-inner">
+    <div class="watermark watermark-sea">SEA</div>
+    <div class="domain-content">
+      <div class="eyebrow anim">Maritime Intelligence</div>
+      <h2 class="section-headline anim delay-1">Every wave analyzed.<br>Every route optimized.</h2>
+      <p class="body-text anim delay-2">Our AI ingests real-time oceanographic data, port telemetry, weather systems, and global trade flows to make routing decisions that no human team could compute.</p>
+      <div class="cap-cards">
+        <div class="glass cap-card anim delay-2">
+          <h4>Real-Time Routing</h4>
+          <p>Dynamic route adjustments based on live ocean current, wave height, and wind pattern data across 14,000+ maritime corridors.</p>
+        </div>
+        <div class="glass cap-card anim delay-3">
+          <h4>Port Congestion AI</h4>
+          <p>Predictive berth allocation and queue optimization that reduces port turnaround time by an average of 31%.</p>
+        </div>
+        <div class="glass cap-card anim delay-4">
+          <h4>Weather Avoidance</h4>
+          <p>72-hour probabilistic storm path modeling with autonomous rerouting triggers — zero human delay in the decision loop.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — AVIATION -->
+<section class="section domain-section" id="aviation">
+  <div class="section-inner">
+    <div class="watermark watermark-sky">SKY</div>
+    <div class="domain-content align-right">
+      <div class="eyebrow anim">Aviation Intelligence</div>
+      <h2 class="section-headline anim delay-1">Every airspace decision,<br>made in milliseconds.</h2>
+      <p class="body-text anim delay-2">From takeoff to touchdown, our neural engine continuously recalculates optimal flight paths, fuel loads, and ATC coordination in real time.</p>
+      <div class="cap-cards">
+        <div class="glass cap-card anim delay-2">
+          <h4>Dynamic Flight Paths</h4>
+          <p>Continuous 4D trajectory optimization incorporating live wind, turbulence, traffic density, and restricted airspace changes.</p>
+        </div>
+        <div class="glass cap-card anim delay-3">
+          <h4>Fuel Optimization AI</h4>
+          <p>Machine learning models trained on 2.8M flight records to predict and minimize fuel burn at every phase of flight.</p>
+        </div>
+        <div class="glass cap-card anim delay-4">
+          <h4>ATC Load Balancing</h4>
+          <p>Sector-level traffic flow prediction and redistribution to prevent congestion cascades before they form.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 — THE NEXUS -->
+<section class="section nexus" id="nexus">
+  <div class="section-inner">
+    <div class="eyebrow anim">The Nexus</div>
+    <h2 class="section-headline anim delay-1">One system. Two domains.<br>Infinite scale.</h2>
+    <p class="body-text anim delay-2" style="text-align:center;margin-left:auto;margin-right:auto;">The Aero Sea Nexus AI core doesn't just optimize — it sees the entire global transport grid as a single interconnected organism.</p>
+    <div class="nexus-diagram anim delay-3">
+      <div class="nexus-node maritime">Maritime</div>
+      <div class="nexus-line left"></div>
+      <div class="nexus-node core">AI Core</div>
+      <div class="nexus-line right"></div>
+      <div class="nexus-node aviation">Aviation</div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-block anim delay-1">
+        <div class="stat-number">2.4B+</div>
+        <div class="stat-label">Vessel-Miles Optimized Daily</div>
+      </div>
+      <div class="stat-block anim delay-2">
+        <div class="stat-number">180K+</div>
+        <div class="stat-label">Flight Paths Recalculated Per Hour</div>
+      </div>
+      <div class="stat-block anim delay-3">
+        <div class="stat-number">94%</div>
+        <div class="stat-label">Carbon Emission Reduction Potential</div>
+      </div>
+      <div class="stat-block anim delay-4">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Human Bottlenecks at Decision Layer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 — VISION -->
+<section class="section vision" id="vision">
+  <div class="section-inner">
+    <p class="vision-quote anim">"We don't move ships. We don't route planes. We orchestrate the future of global movement."</p>
+    <p class="vision-author anim delay-1">— Arjun Khanna, Founder, Aero Sea Nexus</p>
+    <div class="vision-divider anim delay-2"></div>
+    <div class="phases">
+      <div class="glass phase anim delay-2">
+        <div class="phase-tag">Phase I</div>
+        <div class="phase-title">Maritime AI Rollout</div>
+      </div>
+      <div class="glass phase anim delay-3">
+        <div class="phase-tag">Phase II</div>
+        <div class="phase-title">Aviation Integration</div>
+      </div>
+      <div class="glass phase anim delay-4">
+        <div class="phase-tag">Phase III</div>
+        <div class="phase-title">Unified Global Grid</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7 — CONTACT -->
+<section class="section contact" id="contact">
+  <div class="section-inner">
+    <div class="eyebrow anim">Reach Out</div>
+    <h2 class="section-headline anim delay-1">Build the future with us.</h2>
+    <div class="contact-cards">
+      <a href="tel:+35679604702" class="glass contact-card anim delay-2">
+        <span class="contact-icon">☎</span>
+        <span class="contact-card-label">Phone</span>
+        <span class="contact-card-value">+356 79604702</span>
+      </a>
+      <a href="https://linkedin.com/in/arjun-khanna-92176a3b1" target="_blank" rel="noopener noreferrer" class="glass contact-card anim delay-3">
+        <span class="contact-icon">in</span>
+        <span class="contact-card-label">LinkedIn</span>
+        <span class="contact-card-value">Arjun Khanna</span>
+      </a>
+    </div>
+    <div class="contact-cta anim delay-4">
+      <a href="https://linkedin.com/in/arjun-khanna-92176a3b1" target="_blank" rel="noopener noreferrer" class="btn-primary">Start the Conversation</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  &copy; 2025 Aero Sea Nexus. All rights reserved.
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════
+     THREE.JS  +  STAR FIELD  +  SHOOTING STARS  +  MILKY WAY
+     ═══════════════════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════
+     RENDERER / SCENE / CAMERA
+     ═══════════════════════════════════════ */
+  var canvas = document.getElementById('bg-canvas');
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 1);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1500);
+  camera.position.set(0, 0, 80);
+  camera.lookAt(0, 0, 0);
+
+  /* ═══════════════════════════════════════
+     SCROLL STATE
+     ═══════════════════════════════════════ */
+  var scrollY = 0;
+  var targetCamY = 0;
+  window.addEventListener('scroll', function() {
+    scrollY = window.pageYOffset;
+    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    var scrollFraction = maxScroll > 0 ? scrollY / maxScroll : 0;
+    targetCamY = (scrollFraction - 0.5) * -30;
+  });
+
+  /* ═══════════════════════════════════════
+     ★ STATIC STAR FIELD (5,000 points)
+     ═══════════════════════════════════════ */
+  var STAR_COUNT = 5000;
+  var starGeo = new THREE.BufferGeometry();
+  var starPos = new Float32Array(STAR_COUNT * 3);
+  var starCol = new Float32Array(STAR_COUNT * 3);
+  var starSizes = new Float32Array(STAR_COUNT);
+  var starPhases = new Float32Array(STAR_COUNT);
+  var starFreqs = new Float32Array(STAR_COUNT);
+  var starBaseOpacities = new Float32Array(STAR_COUNT);
+
+  var starColorPalette = [
+    new THREE.Color(0xFFFFFF),
+    new THREE.Color(0xCAE8FF),
+    new THREE.Color(0xFFF5CC)
+  ];
+
+  for (var i = 0; i < STAR_COUNT; i++) {
+    // Distribute in a sphere of radius 600
+    var theta = Math.random() * Math.PI * 2;
+    var phi = Math.acos(2 * Math.random() - 1);
+    var rad = 150 + Math.random() * 450;
+    var sx = rad * Math.sin(phi) * Math.cos(theta);
+    var sy = rad * Math.sin(phi) * Math.sin(theta);
+    var sz = rad * Math.cos(phi);
+    starPos[i * 3]     = sx;
+    starPos[i * 3 + 1] = sy;
+    starPos[i * 3 + 2] = sz;
+
+    // 80% tiny, 20% medium
+    starSizes[i] = Math.random() < 0.8 ? 0.4 : 1.2;
+
+    // Random color from palette
+    var c = starColorPalette[Math.floor(Math.random() * 3)];
+    starCol[i * 3]     = c.r;
+    starCol[i * 3 + 1] = c.g;
+    starCol[i * 3 + 2] = c.b;
+
+    // Twinkle params
+    starPhases[i] = Math.random() * Math.PI * 2;
+    starFreqs[i] = 0.3 + Math.random() * 0.9;
+
+    // Dim near horizon (Y close to 0)
+    starBaseOpacities[i] = Math.abs(sy) < 40 ? 0.5 : 1.0;
+  }
+
+  starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+  starGeo.setAttribute('color', new THREE.BufferAttribute(starCol, 3));
+  starGeo.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
+
+  // Custom shader for per-star size and twinkling opacity
+  var starMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uTime: { value: 0 },
+      uPixelRatio: { value: renderer.getPixelRatio() }
+    },
+    vertexShader: [
+      'attribute float size;',
+      'varying vec3 vColor;',
+      'varying float vSize;',
+      'void main() {',
+      '  vColor = color;',
+      '  vSize = size;',
+      '  vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);',
+      '  gl_PointSize = size * (200.0 / -mvPosition.z);',
+      '  gl_Position = projectionMatrix * mvPosition;',
+      '}'
+    ].join('\n'),
+    fragmentShader: [
+      'varying vec3 vColor;',
+      'void main() {',
+      '  float d = length(gl_PointCoord - vec2(0.5));',
+      '  if (d > 0.5) discard;',
+      '  float alpha = 1.0 - smoothstep(0.0, 0.5, d);',
+      '  gl_FragColor = vec4(vColor, alpha * 0.85);',
+      '}'
+    ].join('\n'),
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexColors: true
+  });
+
+  var starPoints = new THREE.Points(starGeo, starMat);
+  scene.add(starPoints);
+
+  /* ═══════════════════════════════════════
+     ★ MILKY WAY BAND (3,000 points)
+     ═══════════════════════════════════════ */
+  var MW_COUNT = 3000;
+  var mwGeo = new THREE.BufferGeometry();
+  var mwPos = new Float32Array(MW_COUNT * 3);
+  var mwCol = new Float32Array(MW_COUNT * 3);
+
+  var mwPalette = [
+    new THREE.Color(0xFFF5CC),
+    new THREE.Color(0xE8DAFF),
+    new THREE.Color(0xCAE8FF)
+  ];
+
+  for (var j = 0; j < MW_COUNT; j++) {
+    // Parametric arc: angle -0.8 to 0.8 radians, radius ~300
+    var arcAngle = -0.8 + Math.random() * 1.6;
+    var arcRadius = 280 + Math.random() * 40;
+    var arcX = Math.sin(arcAngle) * arcRadius + (Math.random() - 0.5) * 50;
+    var arcY = 60 + Math.cos(arcAngle) * 60 + (Math.random() - 0.5) * 50;
+    var arcZ = -200 + (Math.random() - 0.5) * 50;
+
+    mwPos[j * 3]     = arcX;
+    mwPos[j * 3 + 1] = arcY;
+    mwPos[j * 3 + 2] = arcZ;
+
+    var mc = mwPalette[Math.floor(Math.random() * 3)];
+    mwCol[j * 3]     = mc.r;
+    mwCol[j * 3 + 1] = mc.g;
+    mwCol[j * 3 + 2] = mc.b;
+  }
+
+  mwGeo.setAttribute('position', new THREE.BufferAttribute(mwPos, 3));
+  mwGeo.setAttribute('color', new THREE.BufferAttribute(mwCol, 3));
+
+  var mwMat = new THREE.PointsMaterial({
+    size: 0.5,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.22,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    sizeAttenuation: true
+  });
+  var milkyWay = new THREE.Points(mwGeo, mwMat);
+  scene.add(milkyWay);
+
+  /* ═══════════════════════════════════════
+     ★ SHOOTING STARS (up to 3 simultaneous)
+     ═══════════════════════════════════════ */
+  var shootingStars = [];
+
+  function createShootingStar() {
+    var geo = new THREE.BufferGeometry();
+    var positions = new Float32Array(6); // 2 vertices × 3
+    var colors = new Float32Array(6);
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    var mat = new THREE.LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      linewidth: 1
+    });
+
+    var line = new THREE.LineSegments(geo, mat);
+    scene.add(line);
+
+    return {
+      line: line,
+      geo: geo,
+      mat: mat,
+      active: false,
+      startTime: 0,
+      duration: 600,
+      startPos: new THREE.Vector3(),
+      dir: new THREE.Vector3(),
+      nextFireTime: performance.now() + 1000 + Math.random() * 4000
+    };
+  }
+
+  function fireShootingStar(ss, now) {
+    ss.active = true;
+    ss.startTime = now;
+    ss.duration = 500 + Math.random() * 200;
+
+    // Start position: top of scene
+    ss.startPos.set(
+      (Math.random() - 0.5) * 400,
+      80 + Math.random() * 60,
+      (Math.random() - 0.5) * 200
+    );
+    // Direction: streak diagonally down
+    ss.dir.set(
+      80 + Math.random() * 120,
+      -(60 + Math.random() * 40),
+      (Math.random() - 0.5) * 40
+    );
+
+    // Set colors: white head → pale cyan tail
+    var c = ss.geo.attributes.color.array;
+    c[0] = 1; c[1] = 1; c[2] = 1;         // head: white
+    c[3] = 0.5; c[4] = 0.9; c[5] = 1.0;   // tail: pale cyan
+    ss.geo.attributes.color.needsUpdate = true;
+  }
+
+  function updateShootingStar(ss, now) {
+    if (!ss.active) {
+      if (now >= ss.nextFireTime) {
+        fireShootingStar(ss, now);
+      }
+      return;
+    }
+
+    var elapsed = now - ss.startTime;
+    var t = Math.min(elapsed / ss.duration, 1.0);
+
+    // Opacity: fade in fast at start, hold, fade out at end
+    var opacity;
+    if (t < 0.15) {
+      opacity = t / 0.15;
+    } else if (t < 0.6) {
+      opacity = 1.0;
+    } else {
+      opacity = 1.0 - (t - 0.6) / 0.4;
+    }
+    ss.mat.opacity = Math.max(0, opacity) * 0.8;
+
+    // Lerp positions along direction
+    var p = ss.geo.attributes.position.array;
+    var tailT = Math.max(0, t - 0.08);
+    // Head
+    p[0] = ss.startPos.x + ss.dir.x * t;
+    p[1] = ss.startPos.y + ss.dir.y * t;
+    p[2] = ss.startPos.z + ss.dir.z * t;
+    // Tail (follows slightly behind)
+    p[3] = ss.startPos.x + ss.dir.x * tailT;
+    p[4] = ss.startPos.y + ss.dir.y * tailT;
+    p[5] = ss.startPos.z + ss.dir.z * tailT;
+    ss.geo.attributes.position.needsUpdate = true;
+
+    if (t >= 1.0) {
+      ss.active = false;
+      ss.mat.opacity = 0;
+      // Random delay until next fire: 4–8 seconds
+      ss.nextFireTime = now + 4000 + Math.random() * 4000;
+    }
+  }
+
+  // Create 3 shooting star instances
+  for (var s = 0; s < 3; s++) {
+    var ss = createShootingStar();
+    ss.nextFireTime = performance.now() + 1000 + Math.random() * 6000;
+    shootingStars.push(ss);
+  }
+
+  /* ═══════════════════════════════════════
+     OCEAN PARTICLES (6,000)
+     ═══════════════════════════════════════ */
+  var OCEAN_COUNT = 6000;
+  var oceanGeo = new THREE.BufferGeometry();
+  var oceanPositions = new Float32Array(OCEAN_COUNT * 3);
+  var oceanColors = new Float32Array(OCEAN_COUNT * 3);
+  var oceanBaseY = new Float32Array(OCEAN_COUNT);
+  var oceanPhase = new Float32Array(OCEAN_COUNT);
+
+  var oceanBlue = new THREE.Color(0x0077B6);
+  var oceanTeal = new THREE.Color(0x0096C7);
+
+  for (var oi = 0; oi < OCEAN_COUNT; oi++) {
+    var ox = (Math.random() - 0.5) * 200;
+    var oy = -15 - Math.random() * 35;
+    var oz = (Math.random() - 0.5) * 120;
+    oceanPositions[oi * 3]     = ox;
+    oceanPositions[oi * 3 + 1] = oy;
+    oceanPositions[oi * 3 + 2] = oz;
+    oceanBaseY[oi] = oy;
+    oceanPhase[oi] = Math.random() * Math.PI * 2;
+
+    var mix = Math.random();
+    var oc = oceanBlue.clone().lerp(oceanTeal, mix);
+    oceanColors[oi * 3]     = oc.r;
+    oceanColors[oi * 3 + 1] = oc.g;
+    oceanColors[oi * 3 + 2] = oc.b;
+  }
+
+  oceanGeo.setAttribute('position', new THREE.BufferAttribute(oceanPositions, 3));
+  oceanGeo.setAttribute('color', new THREE.BufferAttribute(oceanColors, 3));
+
+  var oceanMat = new THREE.PointsMaterial({
+    size: 0.35,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.7,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    sizeAttenuation: true
+  });
+  var oceanPoints = new THREE.Points(oceanGeo, oceanMat);
+  scene.add(oceanPoints);
+
+  /* ═══════════════════════════════════════
+     SKY PARTICLES (2,000)
+     ═══════════════════════════════════════ */
+  var SKY_COUNT = 2000;
+  var skyGeo = new THREE.BufferGeometry();
+  var skyPositions = new Float32Array(SKY_COUNT * 3);
+  var skyColors = new Float32Array(SKY_COUNT * 3);
+
+  var skyPale = new THREE.Color(0x90E0EF);
+  var skyWhite = new THREE.Color(0xd0f0ff);
+
+  for (var si = 0; si < SKY_COUNT; si++) {
+    skyPositions[si * 3]     = (Math.random() - 0.5) * 200;
+    skyPositions[si * 3 + 1] = 15 + Math.random() * 50;
+    skyPositions[si * 3 + 2] = (Math.random() - 0.5) * 160;
+
+    var smix = Math.random();
+    var sc = skyPale.clone().lerp(skyWhite, smix);
+    skyColors[si * 3]     = sc.r;
+    skyColors[si * 3 + 1] = sc.g;
+    skyColors[si * 3 + 2] = sc.b;
+  }
+
+  skyGeo.setAttribute('position', new THREE.BufferAttribute(skyPositions, 3));
+  skyGeo.setAttribute('color', new THREE.BufferAttribute(skyColors, 3));
+
+  var skyMat = new THREE.PointsMaterial({
+    size: 0.25,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.5,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    sizeAttenuation: true
+  });
+  var skyPoints = new THREE.Points(skyGeo, skyMat);
+  scene.add(skyPoints);
+
+  /* ═══════════════════════════════════════
+     HORIZON GLOW PLANES
+     ═══════════════════════════════════════ */
+  var horizonGeo = new THREE.PlaneGeometry(250, 3);
+  var horizonMat = new THREE.MeshBasicMaterial({
+    color: 0x00B4D8,
+    transparent: true,
+    opacity: 0.08,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+  var horizonPlane = new THREE.Mesh(horizonGeo, horizonMat);
+  scene.add(horizonPlane);
+
+  var horizonGeo2 = new THREE.PlaneGeometry(300, 8);
+  var horizonMat2 = new THREE.MeshBasicMaterial({
+    color: 0x0077B6,
+    transparent: true,
+    opacity: 0.03,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+  var horizonPlane2 = new THREE.Mesh(horizonGeo2, horizonMat2);
+  horizonPlane2.position.set(0, 0, -5);
+  scene.add(horizonPlane2);
+
+  /* ═══════════════════════════════════════
+     BRAIN NODE — WIREFRAME ICOSAHEDRON
+     ═══════════════════════════════════════ */
+  var icoGeo = new THREE.IcosahedronGeometry(5, 1);
+  var icoMat = new THREE.MeshBasicMaterial({
+    color: 0x00B4D8,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.5
+  });
+  var brainNode = new THREE.Mesh(icoGeo, icoMat);
+  scene.add(brainNode);
+
+  var coreGeo = new THREE.IcosahedronGeometry(2.5, 2);
+  var coreMat = new THREE.MeshBasicMaterial({
+    color: 0x00B4D8,
+    transparent: true,
+    opacity: 0.08,
+    blending: THREE.AdditiveBlending
+  });
+  var coreGlow = new THREE.Mesh(coreGeo, coreMat);
+  scene.add(coreGlow);
+
+  /* ═══════════════════════════════════════
+     RADIATING LINES FROM BRAIN
+     ═══════════════════════════════════════ */
+  var LINE_COUNT = 40;
+  var linePositions = new Float32Array(LINE_COUNT * 6);
+
+  for (var li = 0; li < LINE_COUNT; li++) {
+    linePositions[li * 6]     = 0;
+    linePositions[li * 6 + 1] = 0;
+    linePositions[li * 6 + 2] = 0;
+    var isOcean = li < LINE_COUNT / 2;
+    var angle = Math.random() * Math.PI * 2;
+    var radius = 15 + Math.random() * 25;
+    var yDir = isOcean ? -(5 + Math.random() * 20) : (5 + Math.random() * 25);
+    linePositions[li * 6 + 3] = Math.cos(angle) * radius;
+    linePositions[li * 6 + 4] = yDir;
+    linePositions[li * 6 + 5] = Math.sin(angle) * radius * 0.6;
+  }
+
+  var lineGeo = new THREE.BufferGeometry();
+  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+  var lineMat = new THREE.LineBasicMaterial({
+    color: 0x00B4D8,
+    transparent: true,
+    opacity: 0.07,
+    blending: THREE.AdditiveBlending
+  });
+  var brainLines = new THREE.LineSegments(lineGeo, lineMat);
+  scene.add(brainLines);
+
+  /* ═══════════════════════════════════════
+     ⚡ LIGHTNING SYSTEM C — HORIZON POINT LIGHTS
+     ═══════════════════════════════════════ */
+  var horizonLights = [];
+  for (var hl = 0; hl < 3; hl++) {
+    var light = new THREE.PointLight(0x6AB4FF, 0, 120);
+    light.position.set(
+      (Math.random() - 0.5) * 200,
+      -5 + Math.random() * 10,
+      -40 - Math.random() * 30
+    );
+    scene.add(light);
+    horizonLights.push({
+      light: light,
+      active: false,
+      startTime: 0,
+      duration: 150,
+      nextFireTime: performance.now() + 5000 + Math.random() * 12000
+    });
+  }
+
+  function updateHorizonLights(now) {
+    for (var hi = 0; hi < horizonLights.length; hi++) {
+      var h = horizonLights[hi];
+      if (!h.active) {
+        if (now >= h.nextFireTime) {
+          h.active = true;
+          h.startTime = now;
+          h.duration = 80 + Math.random() * 120;
+          // Reposition
+          h.light.position.set(
+            (Math.random() - 0.5) * 200,
+            -5 + Math.random() * 10,
+            -40 - Math.random() * 30
+          );
+        }
+        continue;
+      }
+      var elapsed = now - h.startTime;
+      var t = elapsed / h.duration;
+      if (t >= 1.0) {
+        h.light.intensity = 0;
+        h.active = false;
+        h.nextFireTime = now + 6000 + Math.random() * 14000;
+        continue;
+      }
+      // Sharp flash: intensity spikes then decays
+      var intensity;
+      if (t < 0.1) {
+        intensity = t / 0.1;
+      } else if (t < 0.2) {
+        intensity = 1.0;
+      } else {
+        intensity = 1.0 - ((t - 0.2) / 0.8);
+      }
+      h.light.intensity = intensity * 2.5;
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     ANIMATION LOOP
+     ═══════════════════════════════════════ */
+  var clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    var t = clock.getElapsedTime();
+    var now = performance.now();
+
+    /* ── Star twinkling ── */
+    var sColArr = starGeo.attributes.color.array;
+    for (var ti = 0; ti < STAR_COUNT; ti++) {
+      var raw = Math.sin(t * starFreqs[ti] + starPhases[ti]);
+      var opacity = 0.2 + (raw + 1.0) * 0.4; // maps [-1,1] to [0.2, 1.0]
+      opacity *= starBaseOpacities[ti];
+
+      var ci = ti * 3;
+      var baseC = starColorPalette[0]; // use stored, but we already set them at init
+      // We modulate the existing color by opacity
+      sColArr[ci]     = (sColArr[ci] > 0 ? sColArr[ci] : 1.0) > 0.5 ? opacity : opacity * 0.8;
+    }
+    // Instead of per-channel modulation (expensive), use overall material opacity
+    // Actually, we'll pulse the whole field subtly and rely on the shader
+    starMat.uniforms.uTime.value = t;
+
+    /* ── Shooting stars ── */
+    for (var si2 = 0; si2 < shootingStars.length; si2++) {
+      updateShootingStar(shootingStars[si2], now);
+    }
+
+    /* ── Ocean wave animation ── */
+    var oPos = oceanGeo.attributes.position.array;
+    for (var oi2 = 0; oi2 < OCEAN_COUNT; oi2++) {
+      var x = oPos[oi2 * 3];
+      var bY = oceanBaseY[oi2];
+      var ph = oceanPhase[oi2];
+      var wave = Math.sin(x * 0.06 + t * 0.8 + ph) * 2.5
+                + Math.sin(x * 0.12 + t * 1.2 + ph * 0.7) * 1.0;
+      oPos[oi2 * 3 + 1] = bY + wave;
+      oPos[oi2 * 3] += 0.005;
+      if (oPos[oi2 * 3] > 100) oPos[oi2 * 3] = -100;
+    }
+    oceanGeo.attributes.position.needsUpdate = true;
+
+    /* ── Sky drift ── */
+    var skPos = skyGeo.attributes.position.array;
+    for (var si3 = 0; si3 < SKY_COUNT; si3++) {
+      skPos[si3 * 3 + 1] += 0.003;
+      if (skPos[si3 * 3 + 1] > 65) skPos[si3 * 3 + 1] = 15;
+    }
+    skyGeo.attributes.position.needsUpdate = true;
+
+    /* ── Brain node rotation & pulse ── */
+    brainNode.rotation.y += 0.004;
+    brainNode.rotation.x += 0.001;
+    var pulse = 1 + Math.sin(t * 1.5) * 0.08;
+    brainNode.scale.set(pulse, pulse, pulse);
+    coreGlow.rotation.y = -brainNode.rotation.y * 0.5;
+    coreGlow.scale.set(pulse * 1.1, pulse * 1.1, pulse * 1.1);
+    brainLines.rotation.y += 0.0005;
+
+    /* ── Horizon glow pulse ── */
+    horizonMat.opacity = 0.06 + Math.sin(t * 0.8) * 0.03;
+
+    /* ── Horizon lights (Lightning C) ── */
+    updateHorizonLights(now);
+
+    /* ── Camera auto-orbit + scroll lerp ── */
+    scene.rotation.y += 0.0003;
+    camera.position.y += (targetCamY - camera.position.y) * 0.03;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  /* ─── RESIZE ─── */
+  window.addEventListener('resize', function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   ⚡ LIGHTNING SYSTEM A — ATMOSPHERIC CSS FLASH
+   ═══════════════════════════════════════════════════════════ */
+(function() {
+  function triggerFlash() {
+    document.body.classList.remove('atmo-flash');
+    // Force reflow to restart animation
+    void document.body.offsetWidth;
+    document.body.classList.add('atmo-flash');
+
+    // Schedule next flash: 8–18 seconds
+    var nextDelay = 8000 + Math.random() * 10000;
+    setTimeout(triggerFlash, nextDelay);
+  }
+  // First flash after 3–6 seconds
+  setTimeout(triggerFlash, 3000 + Math.random() * 3000);
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   ⚡ LIGHTNING SYSTEM B — PROCEDURAL CANVAS BOLTS
+   ═══════════════════════════════════════════════════════════ */
+(function() {
+  var lCanvas = document.getElementById('lightning-canvas');
+  var lCtx = lCanvas.getContext('2d');
+
+  function resizeLightningCanvas() {
+    lCanvas.width = window.innerWidth;
+    lCanvas.height = window.innerHeight;
+  }
+  resizeLightningCanvas();
+  window.addEventListener('resize', resizeLightningCanvas);
+
+  // Fractal lightning bolt generator
+  function generateBolt(x1, y1, x2, y2, depth, maxDepth, segments) {
+    if (!segments) segments = [];
+    if (depth > maxDepth) {
+      segments.push({ x1: x1, y1: y1, x2: x2, y2: y2, alpha: 1.0 - depth * 0.12 });
+      return segments;
+    }
+
+    var midX = (x1 + x2) / 2;
+    var midY = (y1 + y2) / 2;
+
+    // Perpendicular offset
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    var len = Math.sqrt(dx * dx + dy * dy);
+    var offsetScale = len * 0.25;
+    var perpX = -dy / len;
+    var perpY = dx / len;
+    var offset = (Math.random() - 0.5) * offsetScale;
+
+    midX += perpX * offset;
+    midY += perpY * offset;
+
+    // Main bolt continues
+    generateBolt(x1, y1, midX, midY, depth + 1, maxDepth, segments);
+    generateBolt(midX, midY, x2, y2, depth + 1, maxDepth, segments);
+
+    // Chance of branch (decreases with depth)
+    if (depth < maxDepth - 1 && Math.random() < 0.3) {
+      var branchAngle = (Math.random() - 0.5) * 1.2;
+      var branchLen = len * (0.2 + Math.random() * 0.3);
+      var bx = midX + Math.cos(Math.atan2(dy, dx) + branchAngle) * branchLen;
+      var by = midY + Math.sin(Math.atan2(dy, dx) + branchAngle) * branchLen;
+      generateBolt(midX, midY, bx, by, depth + 2, maxDepth, segments);
+    }
+
+    return segments;
+  }
+
+  // Draw a bolt
+  function drawBolt(segments, globalAlpha) {
+    for (var bi = 0; bi < segments.length; bi++) {
+      var seg = segments[bi];
+      var alpha = seg.alpha * globalAlpha;
+      if (alpha < 0.01) continue;
+
+      // Glow layer
+      lCtx.beginPath();
+      lCtx.moveTo(seg.x1, seg.y1);
+      lCtx.lineTo(seg.x2, seg.y2);
+      lCtx.strokeStyle = 'rgba(100, 180, 255, ' + (alpha * 0.3) + ')';
+      lCtx.lineWidth = 6;
+      lCtx.stroke();
+
+      // Core layer
+      lCtx.beginPath();
+      lCtx.moveTo(seg.x1, seg.y1);
+      lCtx.lineTo(seg.x2, seg.y2);
+      lCtx.strokeStyle = 'rgba(180, 220, 255, ' + (alpha * 0.7) + ')';
+      lCtx.lineWidth = 2;
+      lCtx.stroke();
+
+      // Bright center
+      lCtx.beginPath();
+      lCtx.moveTo(seg.x1, seg.y1);
+      lCtx.lineTo(seg.x2, seg.y2);
+      lCtx.strokeStyle = 'rgba(230, 245, 255, ' + alpha + ')';
+      lCtx.lineWidth = 0.8;
+      lCtx.stroke();
+    }
+  }
+
+  // Lightning bolt animation state
+  var bolts = [];
+
+  function spawnBolt() {
+    // Origin: somewhere along the top-middle area
+    var startX = window.innerWidth * (0.15 + Math.random() * 0.7);
+    var startY = window.innerHeight * (0.05 + Math.random() * 0.15);
+    // End: lower, offset horizontally
+    var endX = startX + (Math.random() - 0.5) * 300;
+    var endY = startY + window.innerHeight * (0.2 + Math.random() * 0.25);
+
+    var segments = generateBolt(startX, startY, endX, endY, 0, 5);
+
+    bolts.push({
+      segments: segments,
+      startTime: performance.now(),
+      duration: 400 + Math.random() * 300,
+      flickerCount: 1 + Math.floor(Math.random() * 2)
+    });
+  }
+
+  function animateLightning() {
+    requestAnimationFrame(animateLightning);
+
+    lCtx.clearRect(0, 0, lCanvas.width, lCanvas.height);
+
+    var now = performance.now();
+
+    for (var bi2 = bolts.length - 1; bi2 >= 0; bi2--) {
+      var bolt = bolts[bi2];
+      var elapsed = now - bolt.startTime;
+      var t = elapsed / bolt.duration;
+
+      if (t >= 1.0) {
+        bolts.splice(bi2, 1);
+        continue;
+      }
+
+      // Flicker pattern: sharp peaks with rapid decay
+      var alpha;
+      if (t < 0.05) {
+        alpha = t / 0.05;
+      } else if (t < 0.1) {
+        alpha = 1.0 - (t - 0.05) / 0.05 * 0.7;
+      } else if (t < 0.15 && bolt.flickerCount > 0) {
+        alpha = 0.3 + Math.random() * 0.5;
+      } else if (t < 0.2 && bolt.flickerCount > 1) {
+        alpha = 0.2 + Math.random() * 0.3;
+      } else {
+        alpha = Math.max(0, 0.25 * (1.0 - (t - 0.2) / 0.8));
+      }
+
+      drawBolt(bolt.segments, alpha);
+    }
+  }
+
+  animateLightning();
+
+  // Schedule bolts: every 6–15 seconds
+  function scheduleBolt() {
+    spawnBolt();
+    var nextDelay = 6000 + Math.random() * 9000;
+    setTimeout(scheduleBolt, nextDelay);
+  }
+  // First bolt after 4–8 seconds
+  setTimeout(scheduleBolt, 4000 + Math.random() * 4000);
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   INTERSECTION OBSERVER — SCROLL ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+(function() {
+  var elements = document.querySelectorAll('.anim');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  elements.forEach(function(el) { observer.observe(el); });
+})();
+</script>
+
+</body>
+</html>
