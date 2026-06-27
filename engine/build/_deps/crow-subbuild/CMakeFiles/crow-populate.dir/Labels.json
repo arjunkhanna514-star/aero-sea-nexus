@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/crow-populate"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/ad680fedb26552498d5ecb3d8252747a/crow-populate.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/e7afa9c498e8f238d135e717ba76d838/crow-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/5891c379e32c1524589eae547766754b/crow-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/5891c379e32c1524589eae547766754b/crow-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/5891c379e32c1524589eae547766754b/crow-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/5891c379e32c1524589eae547766754b/crow-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/5891c379e32c1524589eae547766754b/crow-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/5891c379e32c1524589eae547766754b/crow-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/5891c379e32c1524589eae547766754b/crow-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/CMakeFiles/5891c379e32c1524589eae547766754b/crow-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"crow-populate"
+		],
+		"name" : "crow-populate"
+	}
+}

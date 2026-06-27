@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\CMakeFiles\d8cda94b30ac85265e906554fa22e8eb\PACKAGE_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6160CADA-35F7-34FF-B173-6DD5D522523B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

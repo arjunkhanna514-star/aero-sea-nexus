@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\788ded4ddb08fa970c5fc9e039327590\asio-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\788ded4ddb08fa970c5fc9e039327590\asio-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\788ded4ddb08fa970c5fc9e039327590\asio-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\788ded4ddb08fa970c5fc9e039327590\asio-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\788ded4ddb08fa970c5fc9e039327590\asio-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\788ded4ddb08fa970c5fc9e039327590\asio-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\788ded4ddb08fa970c5fc9e039327590\asio-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\788ded4ddb08fa970c5fc9e039327590\asio-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\d683e5e42b5864aac0d311adde5495f5\asio-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\7a7ec76337ab0b0a670116b8a0bcdfd0\asio-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\asio-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{D768F08A-17DE-39B1-B462-2DCDA354F9E4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

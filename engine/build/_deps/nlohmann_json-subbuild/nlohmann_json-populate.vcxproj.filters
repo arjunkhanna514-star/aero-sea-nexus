@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\901054e320d8c4b9fa02ce731a9b5f63\nlohmann_json-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\901054e320d8c4b9fa02ce731a9b5f63\nlohmann_json-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\901054e320d8c4b9fa02ce731a9b5f63\nlohmann_json-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\901054e320d8c4b9fa02ce731a9b5f63\nlohmann_json-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\901054e320d8c4b9fa02ce731a9b5f63\nlohmann_json-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\901054e320d8c4b9fa02ce731a9b5f63\nlohmann_json-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\901054e320d8c4b9fa02ce731a9b5f63\nlohmann_json-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\901054e320d8c4b9fa02ce731a9b5f63\nlohmann_json-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\66aaa8156c8de46666a0a32275603b0e\nlohmann_json-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\dc1436c53809d8bdb8201d9420322198\nlohmann_json-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\nlohmann_json-subbuild\CMakeFiles\nlohmann_json-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6BB3AFA2-7993-3A3F-BB7F-623B13EF5CBB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

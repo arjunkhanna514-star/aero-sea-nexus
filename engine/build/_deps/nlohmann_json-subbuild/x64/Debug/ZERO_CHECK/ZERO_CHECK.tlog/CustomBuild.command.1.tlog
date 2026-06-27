@@ -1,0 +1,10 @@
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\NLOHMANN_JSON-SUBBUILD\CMAKEFILES\DC1436C53809D8BDB8201D9420322198\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild -BC:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/nlohmann_json-populate.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

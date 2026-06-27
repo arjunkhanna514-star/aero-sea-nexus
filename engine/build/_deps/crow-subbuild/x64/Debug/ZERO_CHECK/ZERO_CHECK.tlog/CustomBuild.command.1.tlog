@@ -1,0 +1,10 @@
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\CROW-SUBBUILD\CMAKEFILES\AD680FEDB26552498D5ECB3D8252747A\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild -BC:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-subbuild/crow-populate.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

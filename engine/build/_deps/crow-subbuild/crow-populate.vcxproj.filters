@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\5891c379e32c1524589eae547766754b\crow-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\5891c379e32c1524589eae547766754b\crow-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\5891c379e32c1524589eae547766754b\crow-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\5891c379e32c1524589eae547766754b\crow-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\5891c379e32c1524589eae547766754b\crow-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\5891c379e32c1524589eae547766754b\crow-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\5891c379e32c1524589eae547766754b\crow-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\5891c379e32c1524589eae547766754b\crow-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\e7afa9c498e8f238d135e717ba76d838\crow-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\ad680fedb26552498d5ecb3d8252747a\crow-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\crow-subbuild\CMakeFiles\crow-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3F27F6FF-B08C-382D-B197-3B4777C45F1D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\CMAKEFILES\E3E911C0368EAFB838D9DF3FF5DF2C86\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/asus/Desktop/aero-sea-nexus/engine -BC:/Users/asus/Desktop/aero-sea-nexus/engine/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/asus/Desktop/aero-sea-nexus/engine/build/AeroSeaNexusEngine.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

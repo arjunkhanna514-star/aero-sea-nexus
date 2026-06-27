@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/nlohmann_json-populate"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/dc1436c53809d8bdb8201d9420322198/nlohmann_json-populate.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/66aaa8156c8de46666a0a32275603b0e/nlohmann_json-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/901054e320d8c4b9fa02ce731a9b5f63/nlohmann_json-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/901054e320d8c4b9fa02ce731a9b5f63/nlohmann_json-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/901054e320d8c4b9fa02ce731a9b5f63/nlohmann_json-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/901054e320d8c4b9fa02ce731a9b5f63/nlohmann_json-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/901054e320d8c4b9fa02ce731a9b5f63/nlohmann_json-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/901054e320d8c4b9fa02ce731a9b5f63/nlohmann_json-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/901054e320d8c4b9fa02ce731a9b5f63/nlohmann_json-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-subbuild/CMakeFiles/901054e320d8c4b9fa02ce731a9b5f63/nlohmann_json-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"nlohmann_json-populate"
+		],
+		"name" : "nlohmann_json-populate"
+	}
+}

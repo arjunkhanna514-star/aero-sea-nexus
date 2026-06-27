@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/asio-populate"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/7a7ec76337ab0b0a670116b8a0bcdfd0/asio-populate.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/d683e5e42b5864aac0d311adde5495f5/asio-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/788ded4ddb08fa970c5fc9e039327590/asio-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/788ded4ddb08fa970c5fc9e039327590/asio-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/788ded4ddb08fa970c5fc9e039327590/asio-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/788ded4ddb08fa970c5fc9e039327590/asio-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/788ded4ddb08fa970c5fc9e039327590/asio-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/788ded4ddb08fa970c5fc9e039327590/asio-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/788ded4ddb08fa970c5fc9e039327590/asio-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/788ded4ddb08fa970c5fc9e039327590/asio-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"asio-populate"
+		],
+		"name" : "asio-populate"
+	}
+}

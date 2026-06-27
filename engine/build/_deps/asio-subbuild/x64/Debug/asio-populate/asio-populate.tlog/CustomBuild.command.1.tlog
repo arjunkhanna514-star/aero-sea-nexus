@@ -1,0 +1,150 @@
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\788DED4DDB08FA970C5FC9E039327590\ASIO-POPULATE-MKDIR.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -Dcfgdir=/Debug -P C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/tmp/asio-populate-mkdirs.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/src/asio-populate-stamp/Debug/asio-populate-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\788DED4DDB08FA970C5FC9E039327590\ASIO-POPULATE-DOWNLOAD.RULE
+setlocal
+cd C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/tmp/asio-populate-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/src/asio-populate-stamp/Debug/asio-populate-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\788DED4DDB08FA970C5FC9E039327590\ASIO-POPULATE-UPDATE.RULE
+setlocal
+cd C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-src
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -Dcan_fetch=YES -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/tmp/asio-populate-gitupdate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\788DED4DDB08FA970C5FC9E039327590\ASIO-POPULATE-PATCH.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/src/asio-populate-stamp/Debug/asio-populate-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\788DED4DDB08FA970C5FC9E039327590\ASIO-POPULATE-CONFIGURE.RULE
+setlocal
+cd C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/src/asio-populate-stamp/Debug/asio-populate-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\788DED4DDB08FA970C5FC9E039327590\ASIO-POPULATE-BUILD.RULE
+setlocal
+cd C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/src/asio-populate-stamp/Debug/asio-populate-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\788DED4DDB08FA970C5FC9E039327590\ASIO-POPULATE-INSTALL.RULE
+setlocal
+cd C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/src/asio-populate-stamp/Debug/asio-populate-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\788DED4DDB08FA970C5FC9E039327590\ASIO-POPULATE-TEST.RULE
+setlocal
+cd C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/src/asio-populate-stamp/Debug/asio-populate-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\D683E5E42B5864AAC0D311ADDE5495F5\ASIO-POPULATE-COMPLETE.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/Debug/asio-populate-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/asio-populate-prefix/src/asio-populate-stamp/Debug/asio-populate-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKEFILES\7A7EC76337AB0B0A670116B8A0BCDFD0\ASIO-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\ASUS\DESKTOP\AERO-SEA-NEXUS\ENGINE\BUILD\_DEPS\ASIO-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild -BC:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild --check-stamp-file C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/asio-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/asus/Desktop/aero-sea-nexus/engine/build/cmake_install.cmake",
+		"C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/crow-build/cmake_install.cmake",
+		"C:/Users/asus/Desktop/aero-sea-nexus/engine/build/_deps/nlohmann_json-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

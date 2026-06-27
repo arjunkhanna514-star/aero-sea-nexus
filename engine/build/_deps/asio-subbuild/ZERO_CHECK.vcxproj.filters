@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\asus\Desktop\aero-sea-nexus\engine\build\_deps\asio-subbuild\CMakeFiles\7a7ec76337ab0b0a670116b8a0bcdfd0\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{D768F08A-17DE-39B1-B462-2DCDA354F9E4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
