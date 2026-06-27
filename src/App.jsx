@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import Landing        from './pages/Landing.jsx'
 import Login          from './pages/Login.jsx'
 import Signup         from './pages/Signup.jsx'
-import Dashboard      from './components/Dashboard.jsx'
+import Dashboard      from './pages/Dashboard.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
